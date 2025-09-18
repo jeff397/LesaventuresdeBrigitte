@@ -1,0 +1,74 @@
+/* =======================
+   HEADER
+======================= */
+header {
+  height: 40vh;
+  color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* NAVIGATION FLEX */
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+
+/* TITRE DU BLOG */
+header nav h1 {
+  font-size: 1.8rem;
+  margin-bottom: 4.5rem;
+  color: #296567;
+}
+
+/* LISTE DE LIENS */
+header nav ul {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 1.5rem;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li a {
+  color: #296567;
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+header nav ul li a:hover {
+  color: #f39c12; /* accent couleur au hover */
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+  header nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header nav h1 {
+    font-size: 1.5rem;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  header nav ul li a {
+    font-size: 0.875rem; /* 14px pour mobile */
+  }
+}

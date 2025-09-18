@@ -1,0 +1,43 @@
+.category-filter {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.dropdown {
+  position: relative; /* point de référence pour le menu */
+  display: inline-block;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #333;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* juste sous le bouton */
+  left: 0; /* aligne sur la gauche du bouton */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background: #f0f0f0;
+}
