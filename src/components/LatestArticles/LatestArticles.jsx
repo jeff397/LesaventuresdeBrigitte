@@ -8,7 +8,7 @@ function LatestArticles({ articles }) {
 
   return (
     <section className="latest-articles">
-      <h1>Derniers articles</h1>
+      <h1>Articles récents</h1>
       <div className="latest-articles-grid">
         {articles.map((article) => (
           <div key={article._id} className="blog-article-card">
