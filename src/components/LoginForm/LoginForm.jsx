@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./loginForm.css";
 
-function LoginForm() {
+function LoginForm({ onSuccess }) {
+  // <-- ajouter prop
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +17,11 @@ function LoginForm() {
     try {
       const data = await loginAPI({ email, password });
       login(data.token);
-      navigate("/dashboard");
+
+      // Fermer la modale si un callback est passé
+      if (onSuccess) onSuccess();
+
+      navigate("/dashboard"); // Tu peux conserver ou supprimer selon le besoin
     } catch (err) {
       setError(err.response?.data?.message || "Erreur serveur");
     }

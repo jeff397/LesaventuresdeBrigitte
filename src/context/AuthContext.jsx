@@ -1,4 +1,4 @@
 import { createContext } from "react";
 
-// Export nommé pour le contexte
+// Juste le contexte, sans logique
 export const AuthContext = createContext();

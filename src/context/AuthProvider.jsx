@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { AuthContext } from "./AuthContext"; // import nommé
+import jwtDecode from "jwt-decode";
+import { AuthContext } from "./AuthContext"; // on importe le contexte
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -7,8 +8,13 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (token) {
-      // Optionnel : tu peux décoder le token ici pour récupérer l'user
-      setUser({ token });
+      try {
+        const decoded = jwtDecode(token);
+        setUser(decoded); // { id, email, role }
+      } catch (err) {
+        console.error("Token invalide :", err);
+        setUser(null);
+      }
     }
   }, [token]);
 

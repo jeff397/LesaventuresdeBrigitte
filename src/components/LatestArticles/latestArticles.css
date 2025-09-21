@@ -1,0 +1,59 @@
+.latest-articles {
+  padding: 2rem;
+  background-color: #fdf6f0;
+}
+
+.latest-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.latest-article-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s;
+  max-width: 260px;
+  margin-top: 20px;
+}
+
+.latest-article-card:hover {
+  transform: translateY(-3px);
+}
+
+.latest-article-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.latest-article-content {
+  padding: 0.8rem;
+}
+
+.latest-article-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.latest-article-excerpt {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.latest-read-more {
+  color: #d35400;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.latest-read-more:hover {
+  text-decoration: underline;
+}

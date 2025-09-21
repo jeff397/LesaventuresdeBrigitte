@@ -23,11 +23,16 @@
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centre horizontalement */
+  justify-content: center; /* centre verticalement */
+  text-align: center; /* centre le texte à l’intérieur */
+  padding: 2rem;
+  min-height: 400px; /* ajustable selon ton Hero */
 }
 
 .hero h2 {
-  font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -35,18 +40,65 @@
   font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    height: 40vh;
-    min-height: 250px;
-    background-position: center;
-  }
+.hero-card {
+  background: rgba(255, 255, 255, 0.15); /* léger effet glass */
+  backdrop-filter: blur(10px); /* flou derrière */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+  max-width: 320px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-  .hero h2 {
-    font-size: 1.8rem;
-  }
+.hero-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
 
-  .hero p {
-    font-size: 1rem;
-  }
+.hero-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-card li {
+  margin-bottom: 0.7rem;
+}
+
+.hero-card a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.hero-card a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s;
+}
+
+.hero-card a:hover {
+  color: #ffd700; /* doré à l’hover */
+}
+
+.hero-card a:hover::after {
+  width: 100%;
 }

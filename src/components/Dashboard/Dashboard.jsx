@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getArticles, deleteArticle } from "../../services/articles";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import "./dashboard.css";
 
 function Dashboard() {
   const [articles, setArticles] = useState([]);
-
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getArticles();
@@ -29,18 +30,29 @@ function Dashboard() {
         Créer un nouvel article
       </Link>
 
+      {user?.role === "admin" && (
+        <Link to="/admin/comments" className="validate-comments-btn">
+          Valider les commentaires
+        </Link>
+      )}
+
       {articles.length === 0 ? (
         <p>Aucun article pour le moment.</p>
       ) : (
         <ul className="articles-list">
           {articles.map((article) => (
             <li key={article._id} className="article-item">
-              <Link
-                to={`/dashboard/edit/${article._id}`}
-                className="article-title"
-              >
-                {article.title}
-              </Link>
+              <div className="article-info">
+                <Link
+                  to={`/dashboard/edit/${article._id}`}
+                  className="article-title"
+                >
+                  {article.title}
+                </Link>
+                <span>Catégorie : {article.category?.title}</span>
+                <span>Blog : {article.blog}</span>
+              </div>
+
               <button
                 className="delete-btn"
                 onClick={() => handleDelete(article._id)}

@@ -1,46 +1,111 @@
 .dashboard {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Boutons principaux */
+.new-article-btn,
+.validate-comments-btn {
+  display: inline-block;
+  margin: 10px 10px 25px 0;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
 
 .new-article-btn {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #333;
+  background: #4caf50;
   color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
 }
 
+.new-article-btn:hover {
+  background: #45a049;
+}
+
+.validate-comments-btn {
+  background: #2196f3;
+  color: #fff;
+}
+
+.validate-comments-btn:hover {
+  background: #1976d2;
+}
+
+/* Liste d’articles */
 .articles-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .article-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.article-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px; /* ✅ espace automatique entre les spans */
+}
+
+.article-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .article-title {
-  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
   color: #333;
+  text-decoration: none;
+  flex: 1 1 auto;
 }
 
 .article-title:hover {
-  text-decoration: underline;
+  color: #4caf50;
 }
 
+.article-item span {
+  font-size: 0.9rem;
+  color: #666;
+  margin-left: 15px;
+}
+
+/* Bouton supprimer */
 .delete-btn {
-  background: red;
-  color: #fff;
+  background: #f44336;
   border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
 }

@@ -2,17 +2,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { slugify } from "../../utils/slugify"; // transforme "D'hier et d'aujourd'hui" → "dhier-et-daujourdhui"
+import { slugify } from "../../utils/slugify";
+import { useState } from "react";
+import Modal from "../Modal/Modal"; // Ton composant modal
+import LoginForm from "../LoginForm/LoginForm";
+
 import "./header.css";
 
 function Header() {
   const { user, logout } = useContext(AuthContext);
-  const isLoggedIn = !!user;
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = !!user;
+  const isAdmin = user?.role === "admin";
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   const blogs = [
@@ -24,10 +30,13 @@ function Header() {
   return (
     <header>
       <nav>
-        <h1>Les aventures de Brigitte</h1>
+        <h1>Planète Brigitte</h1>
         <ul>
           <li>
-            <Link to="/">Accueil</Link>
+            {/* On passe un state pour réinitialiser la catégorie */}
+            <Link to="/" state={{ resetCategory: true }}>
+              Accueil
+            </Link>
           </li>
 
           {blogs.map((blog) => (
@@ -36,19 +45,28 @@ function Header() {
             </li>
           ))}
 
+          {isAdmin && (
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          )}
+
           <li>
             {isLoggedIn ? (
-              <Link to="/login" onClick={handleLogout}>
+              <button onClick={handleLogout} className="log-btn">
                 <FaUser style={{ marginRight: "6px" }} /> Logout
-              </Link>
+              </button>
             ) : (
-              <Link to="/login">
+              <button onClick={() => setIsModalOpen(true)} className="log-btn">
                 <FaUser style={{ marginRight: "6px" }} /> Login
-              </Link>
+              </button>
             )}
           </li>
         </ul>
       </nav>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <LoginForm onSuccess={() => setIsModalOpen(false)} />
+      </Modal>
     </header>
   );
 }
