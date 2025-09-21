@@ -1,6 +1,3 @@
-/* =======================
-   HEADER
-======================= */
 header {
   height: 30vh;
   color: #fff;
@@ -8,7 +5,6 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* NAVIGATION FLEX */
 header nav {
   display: flex;
   align-items: center;
@@ -17,13 +13,11 @@ header nav {
   flex-wrap: wrap;
 }
 
-/* TITRE DU BLOG */
 header nav h1 {
   margin-bottom: 4.5rem;
   color: #296567;
 }
 
-/* LISTE DE LIENS */
 header nav ul {
   display: flex;
   justify-content: center;
@@ -44,7 +38,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-  color: #f39c12; /* accent couleur au hover */
+  color: #f39c12;
 }
 
 .log-btn {
@@ -61,27 +55,88 @@ header nav ul li a:hover {
   background: #e53935;
 }
 
-/* =======================
-   RESPONSIVE
-======================= */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    padding: 1rem;
+  }
+
   header nav {
     flex-direction: column;
-    align-items: flex-start;
+    margin-top: 20px;
   }
 
   header nav h1 {
+    margin-bottom: 2rem;
     font-size: 1.5rem;
+    text-align: center;
   }
 
   header nav ul {
     flex-direction: column;
-    width: 100%;
-    gap: 0.8rem;
-    margin-top: 0.5rem;
+    gap: 1rem;
   }
 
   header nav ul li a {
-    font-size: 0.875rem; /* 14px pour mobile */
+    font-size: 0.95rem;
+  }
+
+  .log-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: auto;
+    padding: 1rem 1.5rem;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    margin-top: 25px;
+  }
+
+  header nav h1 {
+    margin-bottom: 3rem;
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  header nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+
+  header nav ul li a {
+    font-size: 1rem;
+  }
+
+  .log-btn {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  header {
+    height: 30vh;
+    padding: 1rem 2rem;
+  }
+
+  header nav h1 {
+    margin-bottom: 4.5rem;
+    font-size: 2rem;
+  }
+
+  header nav ul li a {
+    font-size: 1.125rem;
+  }
+
+  .log-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 1rem;
   }
 }

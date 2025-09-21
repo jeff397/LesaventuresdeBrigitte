@@ -3,6 +3,10 @@
   background-color: #fdf6f0;
 }
 
+.articles-title {
+  font-size: 2rem;
+}
+
 .latest-articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -57,4 +61,129 @@
 
 .latest-read-more:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .latest-articles {
+    padding: 1.5rem 1rem;
+  }
+
+  .article-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .latest-articles-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding-top: 20px;
+  }
+
+  .latest-article-card {
+    max-width: 100%;
+    margin-top: 15px;
+  }
+
+  .latest-article-img {
+    height: 120px;
+  }
+
+  .latest-article-content {
+    padding: 0.6rem;
+  }
+
+  .latest-article-title {
+    font-size: 1rem;
+  }
+
+  .latest-article-excerpt {
+    font-size: 0.85rem;
+  }
+
+  .latest-read-more {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .latest-articles {
+    padding: 2rem 1.5rem;
+  }
+
+  .article-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .latest-articles-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.9rem;
+    padding-top: 25px;
+  }
+
+  .latest-article-card {
+    max-width: 220px;
+    margin-top: 18px;
+  }
+
+  .latest-article-img {
+    height: 130px;
+  }
+
+  .latest-article-content {
+    padding: 0.7rem;
+  }
+
+  .latest-article-title {
+    font-size: 1.05rem;
+  }
+
+  .latest-article-excerpt {
+    font-size: 0.88rem;
+  }
+
+  .latest-read-more {
+    font-size: 0.83rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .latest-articles {
+    padding: 2rem;
+  }
+
+  .article-title {
+    font-size: 2rem;
+  }
+
+  .latest-articles-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    padding-top: 30px;
+  }
+
+  .latest-article-card {
+    max-width: 260px;
+    margin-top: 20px;
+  }
+
+  .latest-article-img {
+    height: 140px;
+  }
+
+  .latest-article-content {
+    padding: 0.8rem;
+  }
+
+  .latest-article-title {
+    font-size: 1.1rem;
+  }
+
+  .latest-article-excerpt {
+    font-size: 0.9rem;
+  }
+
+  .latest-read-more {
+    font-size: 0.85rem;
+  }
 }

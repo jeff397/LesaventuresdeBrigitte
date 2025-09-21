@@ -9,7 +9,6 @@ function Hero({ title, subtitle, imageUrl, blogs }) {
         <h2>{title}</h2>
         {subtitle && <p>{subtitle}</p>}
 
-        {/* Carte des anciens blogs */}
         {blogs && blogs.length > 0 && (
           <div className="hero-card">
             <h3>Mes anciens blogs</h3>

@@ -50,3 +50,65 @@
 .dropdown-menu li:hover {
   background-color: #f4e8e0;
 }
+
+@media (max-width: 480px) {
+  .category-filter {
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+
+  .filter-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .dropdown-menu {
+    top: 105%;
+    max-height: 150px;
+    font-size: 0.9rem;
+  }
+
+  .dropdown-menu li {
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-filter {
+    margin: 0.8rem 0;
+  }
+
+  .filter-button {
+    font-size: 0.95rem;
+    padding: 0.55rem 0.9rem;
+  }
+
+  .dropdown-menu {
+    max-height: 180px;
+    font-size: 0.95rem;
+  }
+
+  .dropdown-menu li {
+    padding: 0.45rem 0.9rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .category-filter {
+    margin: 1rem 0;
+  }
+
+  .filter-button {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .dropdown-menu {
+    max-height: 200px;
+    font-size: 1rem;
+  }
+
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+  }
+}

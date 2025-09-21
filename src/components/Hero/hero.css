@@ -25,15 +25,16 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centre horizontalement */
-  justify-content: center; /* centre verticalement */
-  text-align: center; /* centre le texte à l’intérieur */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 2rem;
-  min-height: 400px; /* ajustable selon ton Hero */
+  min-height: 400px;
 }
 
 .hero h2 {
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .hero p {
@@ -41,8 +42,8 @@
 }
 
 .hero-card {
-  background: rgba(255, 255, 255, 0.15); /* léger effet glass */
-  backdrop-filter: blur(10px); /* flou derrière */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 15px;
   padding: 1.5rem 2rem;
@@ -96,9 +97,124 @@
 }
 
 .hero-card a:hover {
-  color: #ffd700; /* doré à l’hover */
+  color: #ffd700;
 }
 
 .hero-card a:hover::after {
   width: 100%;
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero-content {
+    min-height: 300px;
+    padding: 1.5rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-card {
+    max-width: 90%;
+    padding: 1rem 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .hero-card li {
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card a {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 500px;
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-content {
+    min-height: 350px;
+    padding: 1.8rem;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .hero-card {
+    max-width: 280px;
+    padding: 1.3rem 1.8rem;
+    margin-top: 1.8rem;
+  }
+
+  .hero-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .hero-card li {
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-card a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    height: 650px;
+  }
+
+  .hero-content {
+    min-height: 400px;
+    padding: 2rem;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero-card {
+    max-width: 320px;
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .hero-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .hero-card li {
+    margin-bottom: 0.7rem;
+  }
+
+  .hero-card a {
+    font-size: 1rem;
+  }
 }

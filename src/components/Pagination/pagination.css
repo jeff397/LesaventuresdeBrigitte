@@ -31,3 +31,44 @@
   color: #fff;
   border-color: #007bff;
 }
+
+@media (max-width: 480px) {
+  .pagination {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 15px 0;
+  }
+
+  .pagination-btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    min-width: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 18px 0;
+  }
+
+  .pagination-btn {
+    padding: 7px 11px;
+    font-size: 0.9rem;
+    min-width: 38px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .pagination {
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  .pagination-btn {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    min-width: auto;
+  }
+}

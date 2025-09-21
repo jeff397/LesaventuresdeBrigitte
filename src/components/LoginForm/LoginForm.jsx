@@ -18,10 +18,9 @@ function LoginForm({ onSuccess }) {
       const data = await loginAPI({ email, password });
       login(data.token);
 
-      // Fermer la modale si un callback est passé
       if (onSuccess) onSuccess();
 
-      navigate("/dashboard"); // Tu peux conserver ou supprimer selon le besoin
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Erreur serveur");
     }

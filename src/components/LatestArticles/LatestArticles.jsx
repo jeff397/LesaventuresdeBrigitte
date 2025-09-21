@@ -8,7 +8,7 @@ function LatestArticles({ articles }) {
 
   return (
     <section className="latest-articles">
-      <h1>Articles récents</h1>
+      <h2>Articles récents</h2>
       <div className="latest-articles-grid">
         {articles.map((article) => (
           <div key={article._id} className="blog-article-card">
@@ -24,7 +24,7 @@ function LatestArticles({ articles }) {
               </div>
             )}
             <div className="article-content">
-              <h2 className="article-title">{article.title}</h2>
+              <h3 className="article-title">{article.title}</h3>
               <p className="article-excerpt">
                 {article.content.replace(/<[^>]+>/g, "").substring(0, 150)}...
               </p>

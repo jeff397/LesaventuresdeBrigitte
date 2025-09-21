@@ -23,3 +23,66 @@
   padding-top: 1rem;
   margin-top: 1rem;
 }
+
+/* Mobile (petits écrans, max 480px) */
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 1.5rem 0.5rem;
+    text-align: center;
+  }
+
+  .footer-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-content p {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+  }
+}
+
+/* Tablettes (max 768px) */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 1.8rem 1rem;
+    text-align: center;
+  }
+
+  .footer-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .footer-content p {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    padding-top: 0.9rem;
+    margin-top: 0.9rem;
+  }
+}
+
+/* Grands écrans (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .site-footer {
+    padding: 2rem 1rem;
+  }
+
+  .footer-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .footer-content p {
+    font-size: 0.95rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.85rem;
+  }
+}

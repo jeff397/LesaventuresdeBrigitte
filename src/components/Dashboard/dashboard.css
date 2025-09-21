@@ -8,14 +8,13 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.dashboard h1 {
+.dashboard h2 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 25px;
   color: #333;
 }
 
-/* Boutons principaux */
 .new-article-btn,
 .validate-comments-btn {
   display: inline-block;
@@ -45,7 +44,6 @@
   background: #1976d2;
 }
 
-/* Liste d’articles */
 .articles-list {
   list-style: none;
   padding: 0;
@@ -68,7 +66,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 15px; /* ✅ espace automatique entre les spans */
+  gap: 15px;
 }
 
 .article-item:hover {
@@ -94,7 +92,6 @@
   margin-left: 15px;
 }
 
-/* Bouton supprimer */
 .delete-btn {
   background: #f44336;
   border: none;
@@ -108,4 +105,124 @@
 
 .delete-btn:hover {
   background: #d32f2f;
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    margin: 20px 10px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .dashboard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .new-article-btn,
+  .validate-comments-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .article-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .article-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .article-title {
+    font-size: 1rem;
+  }
+
+  .article-item span {
+    font-size: 0.85rem;
+    margin-left: 0;
+  }
+
+  .delete-btn {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    margin: 30px 15px;
+    padding: 18px;
+  }
+
+  .dashboard h2 {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+  }
+
+  .new-article-btn,
+  .validate-comments-btn {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  .article-item {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 11px;
+    gap: 8px;
+  }
+
+  .article-title {
+    font-size: 1.05rem;
+  }
+
+  .article-item span {
+    font-size: 0.88rem;
+    margin-left: 10px;
+  }
+
+  .delete-btn {
+    font-size: 0.88rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dashboard {
+    max-width: 1000px;
+    padding: 25px;
+  }
+
+  .dashboard h2 {
+    font-size: 2rem;
+  }
+
+  .new-article-btn,
+  .validate-comments-btn {
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
+
+  .article-title {
+    font-size: 1.1rem;
+  }
+
+  .article-item span {
+    font-size: 0.9rem;
+  }
+
+  .delete-btn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
 }

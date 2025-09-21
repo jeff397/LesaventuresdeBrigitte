@@ -43,7 +43,7 @@ function BlogArticles() {
 
   return (
     <section className="blog-articles">
-      <h1>Articles du blog : {blogName.replace(/-/g, " ")}</h1>
+      <h2>Articles du blog : {blogName.replace(/-/g, " ")}</h2>
 
       {articles.length === 0 ? (
         <p>Aucun article trouvé.</p>
