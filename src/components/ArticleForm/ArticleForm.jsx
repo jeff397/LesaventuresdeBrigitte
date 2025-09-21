@@ -35,19 +35,22 @@ import "tinymce/plugins/wordcount";
 function ArticleForm({ articleId }) {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [imagePublicId, setImagePublicId] = useState(null);
   const [content, setContent] = useState("");
-  const navigate = useNavigate();
+  const [blog, setBlog] = useState("");
 
-  // --- Gestion catégories ---
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
 
-  // --- Gestion blog ---
-  const [blog, setBlog] = useState("");
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
+  const [existingImages, setExistingImages] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -62,8 +65,10 @@ function ArticleForm({ articleId }) {
   }, []);
 
   useEffect(() => {
-    if (articleId) {
-      const fetchArticle = async () => {
+    if (!articleId) return;
+
+    const fetchArticle = async () => {
+      try {
         const data = await getArticleById(articleId);
         setTitle(data.title);
         setSubtitle(data.subtitle || "");
@@ -71,200 +76,298 @@ function ArticleForm({ articleId }) {
         setCategory(data.category?._id || "");
         setBlog(data.blog || "");
         if (data.images?.length > 0) {
-          setImagePreview(data.images[0].url);
-          setImagePublicId(data.images[0].public_id);
+          setExistingImages(data.images);
+          setImagePreviews(data.images.map((img) => img.url));
         }
-      };
-      fetchArticle();
-    }
+      } catch (err) {
+        console.error("Erreur chargement article", err);
+      }
+    };
+    fetchArticle();
   }, [articleId]);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
-    setImagePreview(URL.createObjectURL(file));
+    const files = Array.from(e.target.files);
+    setImageFiles((prev) => [...prev, ...files]);
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setImagePreviews((prev) => [...prev, ...previews]);
   };
 
-  const handleRemoveImage = async () => {
-    if (articleId && imagePublicId) {
+  const handleRemoveImage = async (index, existing = false) => {
+    if (existing) {
+      const img = existingImages[index];
       try {
-        await deleteImage(articleId, imagePublicId);
+        await deleteImage(articleId, img.public_id);
+        setExistingImages((prev) => prev.filter((_, i) => i !== index));
+        setImagePreviews((prev) => prev.filter((_, i) => i !== index));
       } catch (err) {
-        console.error("Erreur suppression image", err);
-        alert("Impossible de supprimer l'image (voir console).");
-        return;
+        console.error("Erreur suppression image existante", err);
+        alert("Impossible de supprimer l'image (voir console)");
       }
+    } else {
+      setImageFiles((prev) => prev.filter((_, i) => i !== index));
+      setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     }
-    setImageFile(null);
-    setImagePreview(null);
-    setImagePublicId(null);
   };
+
   const handleCreateCategory = async () => {
-    if (!newCategoryName.trim()) return;
+    const name = newCategoryName.trim();
+    if (!name) return;
+
+    if (
+      categories.some((cat) => cat.title.toLowerCase() === name.toLowerCase())
+    ) {
+      alert("Cette catégorie existe déjà");
+      return;
+    }
+
     try {
-      const res = await API.post("/categories", { name: newCategoryName });
+      const res = await API.post("/categories", { name });
       const newCat = res.data;
       setCategories([...categories, newCat]);
       setCategory(newCat._id);
       setNewCategoryName("");
     } catch (err) {
       console.error("Erreur création catégorie", err);
+      alert("Impossible de créer la catégorie (voir console).");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!category) {
-      alert("Veuillez sélectionner une catégorie");
-      return;
-    }
-    if (!blog) {
-      alert("Veuillez sélectionner un blog");
+    const newErrors = {};
+
+    if (!title.trim()) newErrors.title = "Veuillez entrer un titre";
+    if (!content || content.trim() === "" || content === "<p></p>")
+      newErrors.content = "Veuillez saisir du contenu";
+    if (!category) newErrors.category = "Veuillez sélectionner une catégorie";
+    if (!blog) newErrors.blog = "Veuillez sélectionner un blog";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
-    const formData = { title, subtitle, content, category, blog };
+    setErrors({});
 
-    // ⚡ Gestion image
-    if (imageFile) {
+    let imagesArray = [...existingImages];
+
+    if (imageFiles.length > 0) {
       try {
-        // Supprimer l’ancienne image si elle existe
-        if (articleId && imagePublicId) {
-          await API.delete(`/articles/${articleId}/images/${imagePublicId}`);
-        }
-        const uploaded = await uploadImage(imageFile);
-        formData.images = [
-          { url: uploaded.url, public_id: uploaded.public_id },
+        const uploadedImages = await Promise.all(imageFiles.map(uploadImage));
+        imagesArray = [
+          ...imagesArray,
+          ...uploadedImages.map((img) => ({
+            url: img.url,
+            public_id: img.public_id,
+          })),
         ];
       } catch (err) {
         console.error("Image upload failed", err);
         return;
       }
-    } else if (!imagePreview) {
-      formData.images = [];
     }
 
+    const formData = {
+      title,
+      subtitle,
+      content,
+      category,
+      blog,
+      images: imagesArray,
+    };
+
     try {
-      if (articleId) await updateArticle(articleId, formData);
-      else await createArticle(formData);
+      if (articleId) {
+        await updateArticle(articleId, formData);
+      } else {
+        await createArticle(formData);
+      }
       navigate("/dashboard");
     } catch (err) {
       console.error("Erreur lors de la sauvegarde de l'article", err);
     }
   };
 
+  const handleDeleteCategory = async (id) => {
+    try {
+      await API.delete(`/categories/${id}`);
+      setCategories(categories.filter((cat) => cat._id !== id));
+      if (category === id) setCategory("");
+    } catch (err) {
+      console.error("Erreur suppression catégorie :", err);
+      alert("Impossible de supprimer la catégorie (voir console)");
+    }
+  };
+
+  const confirmDeleteCategory = (id) => {
+    setCategoryToDelete(id);
+    setShowDeleteModal(true);
+  };
+
   return (
-    <section className="article-form">
-      <h1>{articleId ? "Modifier l'article" : "Créer un nouvel article"}</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Titre :</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Sous-titre :</label>
-          <input
-            type="text"
-            value={subtitle}
-            onChange={(e) => setSubtitle(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label>Image principale :</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {imagePreview && (
-            <div className="image-preview">
-              <img src={imagePreview} alt="Aperçu" />
-              <button type="button" onClick={handleRemoveImage}>
-                Supprimer
+    <>
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <p>Voulez-vous vraiment supprimer cette catégorie ?</p>
+            <div className="modal-actions">
+              <button
+                className="confirm-btn"
+                onClick={() => {
+                  handleDeleteCategory(categoryToDelete);
+                  setShowDeleteModal(false);
+                }}
+              >
+                Oui, supprimer
+              </button>
+              <button
+                className="cancel-btn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Annuler
               </button>
             </div>
-          )}
+          </div>
         </div>
+      )}
 
-        {/* Contenu */}
-        <div>
-          <label>Contenu :</label>
-          <Editor
-            value={content}
-            onEditorChange={(newContent) => setContent(newContent)}
-            init={{
-              height: 400,
-              menubar: true,
-              base_url: "/tinymce",
-              plugins: [
-                "advlist autolink lists link image charmap preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount",
-              ],
-              toolbar:
-                "undo redo | formatselect | bold italic underline | forecolor backcolor | " +
-                "alignleft aligncenter alignright alignjustify | " +
-                "bullist numlist outdent indent | link image | removeformat | help",
-              content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-            }}
-          />
-        </div>
+      <section className="article-form">
+        <h1>{articleId ? "Modifier l'article" : "Créer un nouvel article"}</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Titre :</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={errors.title ? "input-error" : ""}
+            />
+            {errors.title && <p className="error">{errors.title}</p>}
+          </div>
 
-        {/* Catégorie */}
-        <div>
-          <label>Catégorie :</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          >
-            <option value="">Sélectionnez une catégorie</option>
-            {categories.map((cat) => (
-              <option key={cat._id} value={cat._id}>
-                {cat.title}
+          <div>
+            <label>Sous-titre :</label>
+            <input
+              type="text"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label>Images :</label>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+            />
+            <div className="image-preview-container">
+              {imagePreviews.map((preview, index) => (
+                <div key={index} className="image-preview">
+                  <img src={preview} alt={`Aperçu ${index}`} />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleRemoveImage(index, index < existingImages.length)
+                    }
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label>Contenu :</label>
+            <Editor
+              key={articleId || "new"}
+              value={content}
+              onEditorChange={setContent}
+              init={{
+                height: 400,
+                menubar: true,
+                base_url: "/tinymce",
+                plugins: [
+                  "advlist autolink lists link image charmap preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount",
+                ],
+                toolbar:
+                  "undo redo | formatselect | bold italic underline | forecolor backcolor | " +
+                  "alignleft aligncenter alignright alignjustify | " +
+                  "bullist numlist outdent indent | link image | removeformat | help",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
+              className={errors.content ? "input-error" : ""}
+            />
+            {errors.content && <p className="error">{errors.content}</p>}
+          </div>
+
+          <div>
+            <label>Catégorie :</label>
+            <div className="category-select-wrapper">
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className={errors.category ? "input-error" : ""}
+              >
+                <option value="">Sélectionnez une catégorie</option>
+                {categories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.title}
+                  </option>
+                ))}
+              </select>
+              {category && (
+                <button
+                  type="button"
+                  className="delete-category-btn"
+                  onClick={() => confirmDeleteCategory(category)}
+                >
+                  Supprimer
+                </button>
+              )}
+            </div>
+            {errors.category && <p className="error">{errors.category}</p>}
+          </div>
+
+          <div className="new-category-container">
+            <input
+              type="text"
+              placeholder="Créer une nouvelle catégorie"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+            />
+            <button type="button" onClick={handleCreateCategory}>
+              Ajouter
+            </button>
+          </div>
+
+          <div>
+            <label>Blog :</label>
+            <select
+              value={blog}
+              onChange={(e) => setBlog(e.target.value)}
+              className={errors.blog ? "input-error" : ""}
+            >
+              <option value="">Sélectionnez un blog</option>
+              <option value="Villers-sur-Authie">Villers-sur-Authie</option>
+              <option value="D'hier et d'aujourd'hui">
+                D'hier et d'aujourd'hui
               </option>
-            ))}
-          </select>
-        </div>
+              <option value="Somme-photos">Somme-photos</option>
+            </select>
+            {errors.blog && <p className="error">{errors.blog}</p>}
+          </div>
 
-        {/* Nouvelle catégorie */}
-        <div>
-          <label>Nouvelle catégorie :</label>
-          <input
-            type="text"
-            placeholder="Créer une nouvelle catégorie"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-          />
-          <button type="button" onClick={handleCreateCategory}>
-            Ajouter
-          </button>
-        </div>
-
-        {/* Blog */}
-        <div>
-          <label>Blog :</label>
-          <select
-            value={blog}
-            onChange={(e) => setBlog(e.target.value)}
-            required
-          >
-            <option value="">Sélectionnez un blog</option>
-            <option value="Villers-sur-Authie">Villers-sur-Authie</option>
-            <option value="D'hier et d'aujourd'hui">
-              D'hier et d'aujourd'hui
-            </option>
-            <option value="Somme-photos">Somme-photos</option>
-          </select>
-        </div>
-
-        <button type="submit">{articleId ? "Modifier" : "Créer"}</button>
-      </form>
-    </section>
+          <button type="submit">{articleId ? "Modifier" : "Créer"}</button>
+        </form>
+      </section>
+    </>
   );
 }
 

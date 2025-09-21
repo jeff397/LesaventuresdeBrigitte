@@ -1,34 +1,287 @@
+/* articleForm.css */
+
 .article-form {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.article-form input[type="text"] {
+.article-form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.article-form form > div {
+  margin-bottom: 22px;
+}
+
+/* Labels */
+.article-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+/* Inputs, selects, textarea */
+.article-form input[type="text"],
+.article-form select,
+.article-form textarea {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  padding: 10px 14px;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.editor-toolbar button {
-  margin-right: 5px;
-  padding: 5px 10px;
+.article-form input[type="text"]:focus,
+.article-form select:focus,
+.article-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+/* Buttons */
+.article-form button {
+  padding: 10px 22px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-.editor-content {
-  border: 1px solid #ccc;
-  padding: 10px;
-  min-height: 300px;
+.article-form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* Submit button full width */
+.article-form button[type="submit"] {
+  width: 100%;
   margin-top: 10px;
-  border-radius: 4px;
-  white-space: pre-wrap;
+}
+
+/* Image preview container */
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.image-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.image-preview:hover {
+  transform: scale(1.05);
 }
 
 .image-preview img {
-  max-width: 100%;
-  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Remove button on image */
+.image-preview button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: rgba(220, 53, 69, 0.9);
+  border: none;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 12px;
   border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.image-preview button:hover {
+  background-color: rgba(180, 0, 20, 0.9);
+}
+
+/* TinyMCE Editor adjustments */
+.tox-tinymce {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Error messages */
+.error {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Inputs with errors */
+.input-error {
+  border: 2px solid #d9534f;
+  background-color: #ffecec;
+}
+
+/* Nouvelle catégorie input + bouton */
+.new-category .inline-input {
+  display: flex;
+  gap: 10px;
+}
+
+.new-category .inline-input input {
+  flex: 1;
+}
+
+.new-category .inline-input button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.input-error {
+  border-color: #d9534f !important;
+}
+
+.error {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.new-category-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espace entre input et bouton */
+}
+
+.category-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-category-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-category-btn:hover {
+  background-color: #ff4c4c;
+}
+
+/* Overlay flou et fondu */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal */
+.modal {
+  background-color: #fff;
+  padding: 25px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  transform: scale(0.8);
+  animation: scaleIn 0.3s forwards;
+}
+
+/* Animation scale */
+@keyframes scaleIn {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Boutons */
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.confirm-btn:hover {
+  background-color: #ff4c4c;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #999;
+}
+
+/* Bouton delete à côté du select */
+.delete-category-btn {
+  margin-left: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-category-btn:hover {
+  background-color: #ff4c4c;
 }
