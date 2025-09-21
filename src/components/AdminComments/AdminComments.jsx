@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getComments, approveComment, deleteComment } from "../../api";
-import "./adminComments.css"; // ✅ ajout du CSS
+import "./adminComments.css";
 
 function AdminComments() {
   const [comments, setComments] = useState([]);
