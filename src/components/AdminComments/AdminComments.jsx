@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { getComments, approveComment, deleteComment } from "../../api";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import "./adminComments.css";
 
 function AdminComments() {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isConfirmOpen, setConfirmOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -27,9 +30,21 @@ function AdminComments() {
     );
   };
 
-  const handleDelete = async (id) => {
-    await deleteComment(id);
-    setComments(comments.filter((c) => c._id !== id));
+  const handleDeleteClick = (id) => {
+    setSelectedCommentId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteComment(selectedCommentId);
+      setComments(comments.filter((c) => c._id !== selectedCommentId));
+    } catch (err) {
+      console.error("Erreur suppression :", err);
+    } finally {
+      setConfirmOpen(false);
+      setSelectedCommentId(null);
+    }
   };
 
   if (loading) return <p>Chargement des commentaires...</p>;
@@ -49,11 +64,20 @@ function AdminComments() {
               {!c.approved && (
                 <button onClick={() => handleApprove(c._id)}>Valider</button>
               )}
-              <button onClick={() => handleDelete(c._id)}>Supprimer</button>
+              <button onClick={() => handleDeleteClick(c._id)}>
+                Supprimer
+              </button>
             </div>
           </div>
         ))
       )}
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleConfirmDelete}
+        message="Êtes-vous sûr de vouloir supprimer ce commentaire ?"
+      />
     </div>
   );
 }
