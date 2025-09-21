@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import API from "../../api";
 import ArticleComments from "../ArticleComments/ArticleComments";
 import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale"; // locale française
+import { fr } from "date-fns/locale";
 import "./articleDetail.css";
 
 function ArticleDetail() {
@@ -39,7 +39,6 @@ function ArticleDetail() {
     <article className="article-detail">
       <h1>{article.title}</h1>
 
-      {/* ✅ Affichage date relative */}
       <p className="article-meta">
         Publié{" "}
         {formatDistanceToNow(new Date(article.createdAt), {
