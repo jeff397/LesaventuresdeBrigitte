@@ -1,5 +1,3 @@
-/* articleForm.css */
-
 .article-form {
   max-width: 900px;
   margin: 40px auto;
@@ -9,7 +7,7 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.article-form h1 {
+.article-form h2 {
   text-align: center;
   margin-bottom: 30px;
   color: #333;
@@ -19,7 +17,6 @@
   margin-bottom: 22px;
 }
 
-/* Labels */
 .article-form label {
   display: block;
   font-weight: 600;
@@ -27,7 +24,6 @@
   color: #555;
 }
 
-/* Inputs, selects, textarea */
 .article-form input[type="text"],
 .article-form select,
 .article-form textarea {
@@ -48,7 +44,6 @@
   outline: none;
 }
 
-/* Buttons */
 .article-form button {
   padding: 10px 22px;
   background-color: #007bff;
@@ -65,13 +60,11 @@
   transform: translateY(-1px);
 }
 
-/* Submit button full width */
 .article-form button[type="submit"] {
   width: 100%;
   margin-top: 10px;
 }
 
-/* Image preview container */
 .image-preview-container {
   display: flex;
   flex-wrap: wrap;
@@ -99,7 +92,6 @@
   object-fit: cover;
 }
 
-/* Remove button on image */
 .image-preview button {
   position: absolute;
   top: 4px;
@@ -118,26 +110,22 @@
   background-color: rgba(180, 0, 20, 0.9);
 }
 
-/* TinyMCE Editor adjustments */
 .tox-tinymce {
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* Error messages */
 .error {
   color: #d9534f;
   font-size: 0.9rem;
   margin-top: 5px;
 }
 
-/* Inputs with errors */
 .input-error {
   border: 2px solid #d9534f;
   background-color: #ffecec;
 }
 
-/* Nouvelle catégorie input + bouton */
 .new-category .inline-input {
   display: flex;
   gap: 10px;
@@ -165,7 +153,7 @@
 .new-category-container {
   display: flex;
   align-items: center;
-  gap: 10px; /* espace entre input et bouton */
+  gap: 10px;
 }
 
 .category-select-wrapper {
@@ -187,7 +175,6 @@
   background-color: #ff4c4c;
 }
 
-/* Overlay flou et fondu */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -203,7 +190,6 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Animation d'apparition */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -213,7 +199,6 @@
   }
 }
 
-/* Modal */
 .modal {
   background-color: #fff;
   padding: 25px 20px;
@@ -226,14 +211,12 @@
   animation: scaleIn 0.3s forwards;
 }
 
-/* Animation scale */
 @keyframes scaleIn {
   to {
     transform: scale(1);
   }
 }
 
-/* Boutons */
 .modal-actions {
   margin-top: 20px;
   display: flex;
@@ -270,7 +253,6 @@
   background-color: #999;
 }
 
-/* Bouton delete à côté du select */
 .delete-category-btn {
   margin-left: 10px;
   background-color: #ff6b6b;
@@ -284,4 +266,134 @@
 
 .delete-category-btn:hover {
   background-color: #ff4c4c;
+}
+
+@media (max-width: 480px) {
+  .article-form {
+    margin: 20px 10px;
+    padding: 15px 20px;
+    border-radius: 8px;
+  }
+
+  .article-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .article-form form > div {
+    margin-bottom: 16px;
+  }
+
+  .article-form input[type="text"],
+  .article-form select,
+  .article-form textarea {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .article-form button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .image-preview {
+    width: 80px;
+    height: 80px;
+  }
+
+  .image-preview button {
+    padding: 2px 4px;
+    font-size: 10px;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
+    width: 100%;
+    padding: 8px 0;
+  }
+}
+
+/* Tablettes (max 768px) */
+@media (max-width: 768px) {
+  .article-form {
+    margin: 30px 15px;
+    padding: 20px 25px;
+  }
+
+  .article-form h2 {
+    font-size: 1.7rem;
+  }
+
+  .article-form input[type="text"],
+  .article-form select,
+  .article-form textarea {
+    font-size: 0.95rem;
+    padding: 9px 12px;
+  }
+
+  .article-form button {
+    padding: 9px 18px;
+  }
+
+  .image-preview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal {
+    max-width: 400px;
+    padding: 22px 20px;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1200px) {
+  .article-form {
+    max-width: 1000px;
+    padding: 30px 35px;
+  }
+
+  .article-form h2 {
+    font-size: 2rem;
+  }
+
+  .article-form input[type="text"],
+  .article-form select,
+  .article-form textarea {
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+
+  .article-form button {
+    padding: 10px 22px;
+  }
+
+  .image-preview {
+    width: 140px;
+    height: 140px;
+  }
+
+  .modal {
+    max-width: 400px;
+    padding: 25px 25px;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
+    padding: 10px 20px;
+  }
 }

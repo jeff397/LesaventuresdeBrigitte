@@ -233,7 +233,7 @@ function ArticleForm({ articleId }) {
       )}
 
       <section className="article-form">
-        <h1>{articleId ? "Modifier l'article" : "Créer un nouvel article"}</h1>
+        <h2>{articleId ? "Modifier l'article" : "Créer un nouvel article"}</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Titre :</label>

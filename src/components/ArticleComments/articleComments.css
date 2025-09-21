@@ -122,3 +122,87 @@
   color: #007bff;
   text-align: center;
 }
+
+@media (max-width: 480px) {
+  .comments-section {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 8px;
+  }
+
+  .comments-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .comments-list li {
+    padding: 0.8rem;
+    border-radius: 8px;
+  }
+
+  .comments-list li strong {
+    font-size: 0.95rem;
+  }
+
+  .comment-form h3 {
+    font-size: 1.1rem;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .comment-form button {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .comments-section {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  .comments-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .comments-list li {
+    padding: 0.9rem;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    font-size: 0.98rem;
+  }
+
+  .comment-form button {
+    padding: 0.55rem 1.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .comments-section {
+    max-width: 900px;
+    padding: 2.5rem;
+  }
+
+  .comments-section h2 {
+    font-size: 2rem;
+  }
+
+  .comments-list li {
+    padding: 1.2rem;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    font-size: 1.05rem;
+  }
+
+  .comment-form button {
+    padding: 0.7rem 1.8rem;
+  }
+}
