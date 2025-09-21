@@ -1,10 +1,12 @@
-// src/components/BlogArticles.jsx
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
+import { fr } from "date-fns/locale";
 import API from "../../api";
+import "./blogArticles.css";
 
 function BlogArticles() {
-  const { blogName } = useParams(); // slug de l'URL, ex: "dhier-et-daujourdhui"
+  const { blogName } = useParams();
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -12,7 +14,6 @@ function BlogArticles() {
 
     const fetchArticles = async () => {
       try {
-        // On envoie blogSlug au backend
         const res = await API.get(
           `/articles?blogSlug=${encodeURIComponent(blogName)}`
         );
@@ -33,21 +34,32 @@ function BlogArticles() {
       {articles.length === 0 ? (
         <p>Aucun article trouvé.</p>
       ) : (
-        <ul>
+        <div className="articles-grid">
           {articles.map((article) => (
-            <li key={article._id}>
-              <h2>{article.title}</h2>
-              {article.images?.length > 0 && (
-                <img src={article.images[0].url} alt={article.title} />
+            <div key={article._id} className="blog-article-card">
+              {article.images?.[0]?.url && (
+                <div className="image-wrapper">
+                  <img src={article.images[0].url} alt={article.title} />
+                  <span className="published-badge">
+                    Publié il y a{" "}
+                    {formatDistanceToNow(new Date(article.createdAt), {
+                      locale: fr,
+                    })}
+                  </span>
+                </div>
               )}
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: article.content.substring(0, 200) + "...",
-                }}
-              />
-            </li>
+              <div className="article-content">
+                <h2 className="article-title">{article.title}</h2>
+                <p className="article-excerpt">
+                  {article.content.replace(/<[^>]+>/g, "").substring(0, 150)}...
+                </p>
+                <Link to={`/article/${article.slug}`} className="read-more">
+                  Lire la suite
+                </Link>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </section>
   );
