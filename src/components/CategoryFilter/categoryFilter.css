@@ -1,43 +1,52 @@
 .category-filter {
-  display: flex;
-  justify-content: center;
   margin: 1rem 0;
+  text-align: center;
 }
 
 .dropdown {
-  position: relative; /* point de référence pour le menu */
   display: inline-block;
+  position: relative;
 }
 
 .filter-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #333;
-  color: #fff;
-  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
   cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.filter-button.open {
+  border-color: #d35400;
+  color: #d35400;
+}
+
+.filter-button:hover {
+  border-color: #d35400;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%; /* juste sous le bouton */
-  left: 0; /* aligne sur la gauche du bouton */
-  background: #fff;
-  border: 1px solid #ddd;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 180px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
 .dropdown-menu li {
-  padding: 10px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .dropdown-menu li:hover {
-  background: #f0f0f0;
+  background-color: #f4e8e0;
 }

@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./categoryFilter.css";
 
-function CategoryFilter({ categories, onSelect }) {
+function CategoryFilter({ categories, selectedCategory, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [selectedCategory]);
 
   const handleSelect = (cat) => {
     onSelect(cat);
@@ -12,12 +16,17 @@ function CategoryFilter({ categories, onSelect }) {
   return (
     <section className="category-filter">
       <div className="dropdown">
-        <button className="filter-button" onClick={() => setIsOpen(!isOpen)}>
-          Veuillez sélectionner une catégorie ▾
+        <button
+          className={`filter-button ${isOpen ? "open" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {selectedCategory ? selectedCategory.title : "Toutes les catégories"}{" "}
+          ▾
         </button>
 
         {isOpen && (
           <ul className="dropdown-menu">
+            <li onClick={() => handleSelect(null)}>Toutes les catégories</li>
             {categories.map((cat) => (
               <li key={cat._id} onClick={() => handleSelect(cat)}>
                 {cat.title}
