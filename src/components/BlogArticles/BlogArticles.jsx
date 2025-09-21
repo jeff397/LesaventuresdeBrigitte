@@ -22,7 +22,7 @@ function BlogArticles() {
           `/articles?blogSlug=${encodeURIComponent(blogName)}`
         );
         setArticles(res.data);
-        setCurrentPage(1); // reset pagination quand on change de blog
+        setCurrentPage(1);
       } catch (err) {
         console.error("Erreur chargement articles", err);
       }
