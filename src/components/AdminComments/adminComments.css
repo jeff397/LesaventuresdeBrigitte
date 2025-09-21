@@ -1,0 +1,69 @@
+.admin-comments {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-comments h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+.comment-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.comment-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.comment-card p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.comment-card strong {
+  color: #222;
+}
+
+.comment-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.comment-actions button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.comment-actions button:first-of-type {
+  background: #4caf50;
+  color: white;
+}
+
+.comment-actions button:first-of-type:hover {
+  background: #43a047;
+}
+
+.comment-actions button:last-of-type {
+  background: #f44336;
+  color: white;
+}
+
+.comment-actions button:last-of-type:hover {
+  background: #e53935;
+}
