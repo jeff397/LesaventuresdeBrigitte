@@ -51,7 +51,7 @@ function AdminComments() {
 
   return (
     <div className="admin-comments">
-      <h1>Gestion des commentaires</h1>
+      <h2>Gestion des commentaires</h2>
       {comments.length === 0 ? (
         <p>Aucun commentaire pour le moment.</p>
       ) : (
