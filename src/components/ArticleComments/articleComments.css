@@ -39,6 +39,7 @@
   display: block;
   margin-bottom: 0.4rem;
   font-weight: 600;
+  padding: 0 5px;
 }
 
 .comments-list li.pending-comment {
@@ -54,8 +55,12 @@
   font-size: 0.9rem;
 }
 
-.comments-list p {
-  padding: 5px;
+.comments-list li p {
+  padding: 0 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 }
 
 .comment-form {
@@ -67,6 +72,13 @@
 .comment-form h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+}
+
+.comment-form textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
 }
 
 .comment-form input,

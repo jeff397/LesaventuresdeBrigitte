@@ -29,6 +29,11 @@
 .comment-card p {
   margin: 0.5rem 0;
   color: #555;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 }
 
 .comment-card strong {
