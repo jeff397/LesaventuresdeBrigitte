@@ -11,9 +11,15 @@ const HomeContent = ({
   heroSubtitle = "Retrouvez mes articles et mes anciens blogs",
   heroImage = "assets/images/hero.webp",
   heroBlogs = [
-    { name: "Villers-sur-Authie", url: "https://blog1.overblog.com" },
-    { name: "D'hier et d'aujourd'hui", url: "https://blog2.overblog.com" },
-    { name: "Somme-photos", url: "https://blog3.overblog.com" },
+    {
+      name: "Villers-sur-Authie",
+      url: "https://avis-de-recherche.over-blog.net/",
+    },
+    {
+      name: "D'hier et d'aujourd'hui",
+      url: "https://lhistoiredevie.canalblog.com/",
+    },
+    { name: "Somme-photos", url: "https://somme-photos.over-blog.fr/" },
   ],
   maxArticles = 4,
 }) => {
