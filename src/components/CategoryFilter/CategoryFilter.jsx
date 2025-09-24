@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import API from "../../api.js";
+import API from "../../api";
 import "./categoryFilter.css";
 
 function CategoryFilter({ selectedCategory, onSelect }) {
