@@ -3,6 +3,7 @@ import "./categoryFilter.css";
 
 function CategoryFilter({ categories, selectedCategory, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
+  console.log("API_URL:", import.meta.env.VITE_API_URL);
 
   useEffect(() => {
     setIsOpen(false);
