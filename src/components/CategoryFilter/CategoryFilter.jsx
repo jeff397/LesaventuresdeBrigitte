@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import API from "../api"; // ton axios avec baseURL dynamique
+import API from "../../api";
 import "./categoryFilter.css";
 
 function CategoryFilter({ selectedCategory, onSelect }) {
