@@ -1,28 +1,12 @@
 import { useState, useEffect } from "react";
-import API from "../../api";
 import "./categoryFilter.css";
 
-function CategoryFilter({ selectedCategory, onSelect }) {
+function CategoryFilter({ categories, selectedCategory, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     setIsOpen(false);
   }, [selectedCategory]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        console.log("API_URL:", import.meta.env.VITE_API_URL);
-        const res = await API.get("/categories");
-        console.log("Categories fetched:", res.data);
-        setCategories(res.data);
-      } catch (err) {
-        console.error("Erreur fetch categories:", err);
-      }
-    };
-    fetchCategories();
-  }, []);
 
   const handleSelect = (cat) => {
     onSelect(cat);
