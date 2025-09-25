@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
+import { decodeHTML } from "../../utils/decodeHtml";
 import "./latestArticles.css";
 
 function LatestArticles({ articles }) {
@@ -26,7 +27,11 @@ function LatestArticles({ articles }) {
             <div className="article-content">
               <h3 className="article-title">{article.title}</h3>
               <p className="article-excerpt">
-                {article.content.replace(/<[^>]+>/g, "").substring(0, 150)}...
+                {decodeHTML(article.content.replace(/<[^>]+>/g, "")).substring(
+                  0,
+                  150
+                )}
+                ...
               </p>
               <Link to={`/article/${article.slug}`} className="read-more">
                 Lire la suite
