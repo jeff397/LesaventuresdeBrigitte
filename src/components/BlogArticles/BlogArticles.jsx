@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
 import API from "../../api";
 import Pagination from "../../components/Pagination/Pagination";
 import "./blogArticles.css";
@@ -19,7 +17,7 @@ function BlogArticles() {
     const fetchArticles = async () => {
       try {
         const res = await API.get(
-          `/articles?blogSlug=${encodeURIComponent(blogName)}`
+          `/articles?blogSlug=${encodeURIComponent(blogName)}`,
         );
         setArticles(res.data);
         setCurrentPage(1);
@@ -33,13 +31,22 @@ function BlogArticles() {
 
   if (!blogName) return <p>Aucun blog sélectionné.</p>;
 
-  // Calcul pagination
+  // Pagination
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const startIndex = (currentPage - 1) * articlesPerPage;
   const currentArticles = articles.slice(
     startIndex,
-    startIndex + articlesPerPage
+    startIndex + articlesPerPage,
   );
+
+  // Format date publication
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   return (
     <section className="blog-articles">
@@ -56,13 +63,11 @@ function BlogArticles() {
                   <div className="image-wrapper">
                     <img src={article.images[0].url} alt={article.title} />
                     <span className="published-badge">
-                      Publié il y a{" "}
-                      {formatDistanceToNow(new Date(article.createdAt), {
-                        locale: fr,
-                      })}
+                      Publié le {formatDate(article.createdAt)}
                     </span>
                   </div>
                 )}
+
                 <div className="article-content">
                   <h2 className="article-title">{article.title}</h2>
                   <p className="article-excerpt">

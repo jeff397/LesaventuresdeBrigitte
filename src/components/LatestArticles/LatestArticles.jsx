@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
 import { decodeHTML } from "../../utils/decodeHtml";
 import "./latestArticles.css";
 
 function LatestArticles({ articles }) {
   if (!articles || articles.length === 0) return <p>Aucun article récent.</p>;
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   return (
     <section className="latest-articles">
@@ -16,20 +22,21 @@ function LatestArticles({ articles }) {
             {article.images?.[0]?.url && (
               <div className="image-wrapper">
                 <img src={article.images[0].url} alt={article.title} />
-                <span className="published-badge">
-                  Publié il y a{" "}
-                  {formatDistanceToNow(new Date(article.createdAt), {
-                    locale: fr,
-                  })}
-                </span>
+
+                {article.createdAt && (
+                  <span className="published-badge">
+                    Publié le {formatDate(article.createdAt)}
+                  </span>
+                )}
               </div>
             )}
+
             <div className="article-content">
               <h3 className="article-title">{article.title}</h3>
               <p className="article-excerpt">
                 {decodeHTML(article.content.replace(/<[^>]+>/g, "")).substring(
                   0,
-                  150
+                  150,
                 )}
                 ...
               </p>

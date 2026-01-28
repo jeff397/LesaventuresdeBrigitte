@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
 import ArticleComments from "../ArticleComments/ArticleComments";
-import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
 import "./articleDetail.css";
 
 function ArticleDetail() {
@@ -35,17 +33,24 @@ function ArticleDetail() {
   if (loading) return <p>Chargement...</p>;
   if (!article) return <p>Article non trouvé</p>;
 
+  // Fonction pour formater la date
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
   return (
     <article className="article-detail">
       <h1>{article.title}</h1>
 
-      <p className="article-meta">
-        Publié{" "}
-        {formatDistanceToNow(new Date(article.createdAt), {
-          addSuffix: true,
-          locale: fr,
-        })}
-      </p>
+      {article.createdAt && (
+        <p className="article-meta">
+          Publié le {formatDate(article.createdAt)}
+        </p>
+      )}
 
       {article.images?.length > 0 && (
         <div className="article-images">
